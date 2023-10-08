@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Web calculator</title>
+    <meta charset="UTF-8"/>
+    <!--声明css代码域-->
+    <style type="text/css">
+        /* 设置整体布局样式 */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* 设置div样式，调整边框大小 */
+        #showdiv {
+            border: solid 4px; /* 增加边框大小 */
+            border-radius: 10px;
+            width: 400px; /* 增加宽度 */
+            height: 400px; /* 增加高度 */
+            text-align: center;
+            background-color: floralwhite;
+            padding: 20px; /* 增加内边距 */
+        }
+        h1 {
+            line-height: 5px; /* Adjust the value */
+        }
+        /* 设置输入框样式 */
+        input[type=text] {
+            margin-top: 20px;
+            margin-bottom: 20px; /* 增加底部间距 */
+            width: 365px; /* 调整宽度 */
+            height: 50px;
+            font-size: 30px;
+            font-family: "Times New Roman"; /* 使用字体 */
+            text-align: right;
+            font-weight: bold; /* Make the text bold */
+        }
+
+        /* 设置按钮样式，调整按钮大小和间距 */
+        input[type=button] {
+            width: 50px; /* 增加按钮宽度 */
+            height: 50px; /* 增加按钮高度 */
+            margin: 5px; /* 调整按钮间距 */
+            font-size: 24px; /* 调整按钮字体大小 */
+            font-weight: bold;
+            font-family: "Times New Roman"; /* 使用字体 */
+            font-weight: bold; /* Make the text bold */
+        }
+    </style>
+
+    <!--声明js代码域-->
+    <script type="text/javascript">
+        //声明函数
+        function test(btn) {
+            var num = btn.value;
+            var inputField = document.getElementById("inp");
+
+            switch (num) {
+                case "=":
+                    var expression = inputField.value;
+                    // 检查是否包含sin、cos、tan
+                    if (expression.includes("sin") || expression.includes("cos") || expression.includes("tan")) {
+                        // 将包含的三角函数中的数字从弧度转换为角度
+                        expression = expression.replace(/sin\(([^)]+)\)/g, "Math.sin($1 * (Math.PI / 180))");
+                        expression = expression.replace(/cos\(([^)]+)\)/g, "Math.cos($1 * (Math.PI / 180))");
+                        expression = expression.replace(/tan\(([^)]+)\)/g, "Math.tan($1 * (Math.PI / 180))");
+                    }
+                    inputField.value = eval(expression);
+                    break;
+                case "C":
+                    inputField.value = "";
+                    break;
+                case "^":
+                    inputField.value += "**";
+                    break;
+                case "sin":
+                    inputField.value += "sin(";
+                    break;
+                case "cos":
+                    inputField.value += "cos(";
+
+                    break;
+                case "tan":
+                    inputField.value += "tan(";
+                    break;
+                case "(": // 添加左括号按钮
+                    inputField.value += "(";
+                    break;
+                case ")": // 添加右括号按钮
+                    inputField.value += ")";
+                    break;
+                case "del": // 删除一个字符
+                    var currentValue = inputField.value;
+                    inputField.value = currentValue.substring(0, currentValue.length - 1);
+                    break;
+                case ".": // 添加小数点
+                    inputField.value += ".";
+                    break;
+                default:
+                    inputField.value += num;
+                    break;
+            }
+        }
+
+    </script>
+</head>
+<body>
+<div id="showdiv">
+    <h1>Web calculator</h1> <!-- Title added here -->
+    <input type="text" name="" id="inp" value="" readonly="readonly"/><br />
+    <!-- 调整按钮布局，呈现四行六列 -->
+    <input type="button" name="" id="btn" value="1" onclick="test(this)"/>
+    <input type="button" name="" id="" value="2" onclick="test(this)"/>
+    <input type="button" name="" id="" value="3" onclick="test(this)"/>
+    <input type="button" name="" id="" value="+" onclick="test(this)"/>
+    <input type="button" name="" id="" value="-" onclick="test(this)"/>
+    <input type="button" name="" id="" value="*" onclick="test(this)"/>
+    <br />
+    <input type="button" name="" id="" value="4" onclick="test(this)"/>
+    <input type="button" name="" id="" value="5" onclick="test(this)"/>
+    <input type="button" name="" id="" value="6" onclick="test(this)"/>
+    <input type="button" name="" id="" value="/" onclick="test(this)"/>
+    <input type="button" name="" id="" value="^" onclick="test(this)"/>
+    <input type="button" name="" id="" value="." onclick="test(this)"/> <!-- 小数点按钮 -->
+    <br />
+    <input type="button" name="" id="" value="7" onclick="test(this)"/>
+    <input type="button" name="" id="" value="8" onclick="test(this)"/>
+    <input type="button" name="" id="" value="9" onclick="test(this)"/>
+    <input type="button" name="" id="" value="sin" onclick="test(this)"/>
+    <input type="button" name="" id="" value="cos" onclick="test(this)"/>
+    <input type="button" name="" id="" value="tan" onclick="test(this)"/>
+    <br />
+    <input type="button" name="" id="" value="(" onclick="test(this)"/> <!-- 左括号按钮 -->
+    <input type="button" name="" id="" value="0" onclick="test(this)"/>
+    <input type="button" name="" id="" value=")" onclick="test(this)"/> <!-- 右括号按钮 -->
+    <input type="button" name="" id="" value="del" onclick="test(this)"/> <!-- 删除按钮 -->
+    <input type="button" name="" id="" value="C" onclick="test(this)"/>
+    <input type="button" name="" id="" value="=" onclick="test(this)"/>
+</div>
+</body>
+</html>
